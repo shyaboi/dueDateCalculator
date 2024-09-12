@@ -45,17 +45,12 @@ The main logic is implemented in the `calculateDueDate` function, located in `du
 1. Clone the repository:
 
 ```bash
-   git clone <repository-url>
-   cd <repository-folder>
+   git clone https://github.com/shyaboi/dueDateCalculator.git
+   cd dueDateCalculator
 ```
 
-# Install node (if not on computer):
+Install [node.js](https://nodejs.org/en/download/package-manager) (if not on computer)
 
-```bash
-node index.js
-```
-
-The expected output will be the calculated due date based on the submission time and turnaround time provided in the example in `src/index.js`
 
 # Tests
 
@@ -124,8 +119,6 @@ Output:
 ```bash
 Calculated Due Date: Mon Sep 16 2024 12:00:00 GMT+0000 (UTC)
 ```
-
-
 
 # Due Date Calculator Instructions
 
