@@ -32,3 +32,25 @@ runTest(
   8,
   new Date(Date.UTC(2024, 8, 16, 16, 0))
 );
+
+// Test invalid submission time (before work hours)
+try {
+  calculateDueDate(new Date(Date.UTC(2024, 8, 11, 5, 0)), 8);
+} catch (error) {
+  assert.strictEqual(
+    error.message,
+    "Submit time must be within working hours (9AM - 5PM)"
+  );
+  console.log("Validation test (before work hours) passed!");
+}
+
+// Test weekend submission
+try {
+  calculateDueDate(new Date(Date.UTC(2024, 8, 14, 9, 0)), 8); // Sunday
+} catch (error) {
+  assert.strictEqual(
+    error.message,
+    "Submit time must be on a working day (Monday to Friday)"
+  );
+  console.log("Validation test (weekend) passed!");
+}
