@@ -18,6 +18,29 @@ function runTest(submitTime, turnaroundTime, expectedDueTime, description) {
   }
 }
 
+function runTestWithValidation(
+  submitTime,
+  turnaroundTime,
+  expectedMessage,
+  description
+) {
+  try {
+    calculateDueDate(submitTime, turnaroundTime);
+    // If no error is thrown, the test failed because we expected an invalid input error
+    console.error(
+      `${description} failed: Expected validation error, but got a valid result.`
+    );
+  } catch (error) {
+    if (error.message === expectedMessage) {
+      console.log(`${description} passed`);
+    } else {
+      console.error(
+        `${description} failed - Unexpected error message: ${error.message}`
+      );
+    }
+  }
+}
+
 console.log("Starting DueDateCalculator Tests");
 
 runTest(
@@ -60,6 +83,13 @@ runTest(
   40,
   new Date(Date.UTC(2024, 8, 20, 16, 0)),
   "Test 6: 40-hour turnaround starting at 4:00 PM on Friday"
+);
+
+runTestWithValidation(
+  new Date(Date.UTC(2024, 8, 11, 1, 0)), // Invalid time: 1:00 AM (before 9 AM)
+  8,
+  "Submit time must be within working hours (9AM - 5PM)", // Expected error message
+  "Test 7: Invalid submission time (before 9AM)"
 );
 
 console.log("All tests complete.");

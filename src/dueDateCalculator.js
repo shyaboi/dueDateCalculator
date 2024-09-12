@@ -13,7 +13,10 @@ function calculateDueDate(submitTime, turnaroundTime) {
     const currentMinutes = dueDate.getUTCMinutes();
 
     if (isWithinWorkHours(currentHour)) {
-      const availableMinutesToday = calculateAvailableMinutesToday(currentHour, currentMinutes);
+      const availableMinutesToday = calculateAvailableMinutesToday(
+        currentHour,
+        currentMinutes
+      );
       const remainingMinutes = remainingHours * MINUTES_PER_HOUR;
 
       if (remainingMinutes <= availableMinutesToday) {
@@ -35,13 +38,20 @@ function calculateDueDate(submitTime, turnaroundTime) {
 
 function validateInputs(submitTime, turnaroundTime) {
   if (!(submitTime instanceof Date) || isNaN(submitTime.getTime())) {
-    throw new Error("Invalid submit time");
+    throw new Error("Submit time must be a valid date");
   }
   if (turnaroundTime < 0) {
     throw new Error("Turnaround time must be non-negative");
   }
-  if (!isWithinWorkHours(submitTime.getUTCHours())) {
-    throw new Error("Submit time must be within working hours");
+  const submitHour = submitTime.getUTCHours();
+  const submitDay = submitTime.getUTCDay();
+
+  if (isWeekend(submitDay)) {
+    throw new Error("Submit time must be on a working day");
+  }
+
+  if (!isWithinWorkHours(submitHour)) {
+    throw new Error("Submit time must be within working hours (9AM - 5PM)");
   }
 }
 
@@ -50,7 +60,7 @@ function isWithinWorkHours(hour) {
 }
 
 function isWeekend(day) {
-  return day === 0 || day === 6; // Sunday = 0, Saturday = 6
+  return day === 0 || day === 6;
 }
 
 function calculateAvailableMinutesToday(hour, minutes) {
