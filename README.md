@@ -1,6 +1,108 @@
 # Due Date Calculator
 
-A tool to calculate due dates based on a submission time and turnaround time.
+## Description
+
+This project is a **Due Date Calculator** that calculates the expected resolution time of issues reported during working hours. It takes into account business hours, weekends, and the turnaround time provided.
+
+This solution follows **Clean Code** principles, with a focus on clarity, maintainability, and testability. The code is written in a modular fashion and includes unit tests to validate the accuracy of the due date calculation.
+
+---
+
+## Problem Statement
+
+The problem involves calculating the due date for an issue based on its submission time and the turnaround time in working hours. The rules are as follows:
+
+- Working hours are from **9 AM to 5 PM**, Monday to Friday.
+- Weekends (Saturday and Sunday) are not considered as working days.
+- A problem can only be reported during working hours.
+- Turnaround time is provided in working hours (e.g., 2 days equals 16 hours).
+
+For example:
+
+- If an issue is reported at **2:12 PM on Tuesday** with a turnaround time of **16 hours**, the due date would be **2:12 PM on Thursday**.
+
+---
+
+## Implementation
+
+The main logic is implemented in the `calculateDueDate` function, located in `dueDateCalculator.js`. This function handles the following tasks:
+
+- Validates working hours and processes turnaround time accordingly.
+- Skips weekends when necessary.
+- Accurately calculates the due date based on the turnaround time.
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- **Node.js** (v12 or higher)
+- A terminal or command prompt
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+   git clone <repository-url>
+   cd <repository-folder>
+```
+
+# Install node (if not on computer):
+
+```bash
+node index.js
+```
+
+The expected output will be the calculated due date based on the submission time and turnaround time provided in the example in `src/index.js`
+
+# Tests
+
+This project includes a suite of automated tests to verify the accuracy of the calculateDueDate function. The tests are located in the tests/dueDateCalculator.test.js file and cover various scenarios, such as:
+
+- Issues reported at the start or end of a working day.
+- Multi-day turnaround times.
+- Turnaround times spanning weekends.
+- Running the Tests
+
+To run the tests, execute the following command in the terminal:
+
+```bash
+npm run test
+```
+
+All tests will run, and results will be displayed in the console.
+
+## Project Structure
+
+- `src/index.js`: Entry point script for running the calculator with example data.
+
+- `src/dueDateCalculator.js`: Contains the main logic for calculating the due date.
+
+- `tests/dueDateCalculator.test.js`: Unit tests for validating the correctness of the calculateDueDate function.
+
+# Example Usage
+
+This example can be edited and ran in `src/index.js`
+
+```javascript
+const { calculateDueDate } = require("./dueDateCalculator");
+
+const submissionDate = new Date(Date.UTC(2024, 8, 11, 9, 0)); // September 11, 2024, 9:00 AM (UTC)
+const turnaroundTime = 16; // 16 hours (2 working days)
+
+const dueDate = calculateDueDate(submissionDate, turnaroundTime);
+console.log(`Calculated Due Date: ${dueDate}`);
+```
+
+Output:
+
+```bash
+Calculated Due Date: Mon Sep 16 2024 12:00:00 GMT+0000 (UTC)
+```
+
+
 
 # Due Date Calculator Instructions
 
