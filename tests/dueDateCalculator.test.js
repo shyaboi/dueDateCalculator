@@ -86,10 +86,24 @@ runTest(
 );
 
 runTestWithValidation(
-  new Date(Date.UTC(2024, 8, 11, 1, 0)), // Invalid time: 1:00 AM (before 9 AM)
+  new Date(Date.UTC(2024, 8, 11, 1, 0)),
   8,
-  "Submit time must be within working hours (9AM - 5PM)", // Expected error message
+  "Submit time must be within working hours (9AM - 5PM)",
   "Test 7: Invalid submission time (before 9AM)"
+);
+
+runTest(
+  new Date(Date.UTC(2024, 8, 13, 12, 59)),
+  0.01,
+  new Date(Date.UTC(2024, 8, 13, 13, 0)),
+  "Test 8: Tiny turnaround time right before 5PM"
+);
+
+runTest(
+  new Date(Date.UTC(2024, 8, 13, 13, 0)),
+  160,
+  new Date(Date.UTC(2024, 9, 11, 13, 0)),
+  "Test 9: Large turnaround time"
 );
 
 console.log("All tests complete.");
